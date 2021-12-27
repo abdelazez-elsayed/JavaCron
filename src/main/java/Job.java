@@ -16,6 +16,16 @@ public class Job implements Runnable  {
     private final Runnable taskJob;
     static  Set<Integer> registeredJobs = new HashSet<>();
 
+    /**
+     *
+     * @param taskJob Runnable Object to run
+     * @param frequency period to run
+     * @param expected_interval expected time to run within
+     * @param id Unique id to identify job with
+     * @param unit TimeUnit Object to specify entered time (frequency,expected_interval) units
+     * @param cronScheduler The Scheduler which will run the job
+     * @throws IllegalArgumentException if id is not unique (Exists before)
+     */
     public Job(Runnable taskJob,int frequency, int expected_interval, int id, TimeUnit unit,CronScheduler cronScheduler) throws IllegalArgumentException{
         if(registeredJobs.contains(id)) {
             log.error("Trying to submit a job with existing id "+id);
@@ -28,7 +38,7 @@ public class Job implements Runnable  {
         this.expectedInterval = expected_interval;
         this.id = id;
         this.timeUnit = unit;
-
+        log.info("New job created with id "+id);
     }
 
     @Override

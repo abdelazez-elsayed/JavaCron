@@ -11,24 +11,29 @@ public class CronScheduler {
         return scheduler;
     }
 
-    private ScheduledExecutorService scheduler;
-    Timer timer;
+    private final ScheduledExecutorService scheduler;
     static Logger log = LogManager.getLogger(CronScheduler.class.getName());
 
+    /**
+     *
+     * @param corePoolSize thread pool size of scheduler
+     */
     public CronScheduler (int corePoolSize){
         log.info("Instantiating Scheduler");
         scheduler = Executors.newScheduledThreadPool(corePoolSize);
-     //   timer = new Timer();
     }
+
+    /**
+     *
+     * @param job A job to run by the scheduler
+     */
     public void submitJob(Job job){
 
         log.info("Submitting job");
-        long milis = job.getTimeUnit().toMillis(job.getFrequency());
-        ScheduledFuture<?> jobHandler= scheduler.scheduleAtFixedRate(job,
+        scheduler.scheduleAtFixedRate(job,
                 0,
                 job.getFrequency(),
                 job.getTimeUnit());
-//        timer.scheduleAtFixedRate(job, 0, milis);
         log.info("New job submitted with id "+job.getId());
     }
 
