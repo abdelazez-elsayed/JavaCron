@@ -3,7 +3,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TimerTask;
 import java.util.concurrent.*;
 
 public class Job implements Runnable  {
